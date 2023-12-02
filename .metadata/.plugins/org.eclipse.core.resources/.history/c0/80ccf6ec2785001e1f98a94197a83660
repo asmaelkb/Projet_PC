@@ -1,0 +1,13 @@
+
+public class ProdConsBuffer {
+	int nempty;
+	int nfull;
+	
+	// buffer à n entiers
+	
+	public Message Consume() {
+		return new Message("");
+	}
+	
+	
+}

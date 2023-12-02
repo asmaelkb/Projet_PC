@@ -1,0 +1,46 @@
+package solutionSemaphore3;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Semaphore;
+
+public class ProdConsBuffer {
+	Semaphore notEmpty;
+	Semaphore notFull;
+	Semaphore mutex;
+	int in;
+	int out;
+	int n;
+	
+	ArrayBlockingQueue<Message> buffer;
+ 	
+	public ProdConsBuffer(int n) {
+		this.n = n;
+		this.in = 0;
+		this.out = 0;
+		buffer = new ArrayBlockingQueue<Message>(n);
+	}
+	
+	
+	public void Produce(Message msg) throws InterruptedException {
+		notFull.acquire();
+		mutex.acquire();
+		
+		// Ajout à l'index in
+		buffer[in] = msg;
+		in = in + 1 % n;
+		
+		mutex.release();
+		notEmpty.release();
+	}
+	
+	public Message Consume() {
+		notEmpty.acquire();
+		mutex.acquire();
+		
+		Message msg = buffer[out];
+		out = out + 1 % n;
+		
+		mutex.release();
+		notFull.release();
+	}
+}

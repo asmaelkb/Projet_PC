@@ -1,0 +1,25 @@
+package solutionSemaphore3;
+
+import java.util.concurrent.Semaphore;
+
+public class ProdConsBuffer {
+	Semaphore notEmpty;
+	Semaphore notFull;
+	Semaphore mutex;
+	
+	public void Produce(Message msg) {
+		notFull.acquire();
+		mutex.acquire();
+		
+		mutex.release();
+		notEmpty.release();
+	}
+	
+	public Message Consume() {
+		notEmpty.acquire();
+		mutex.acquire();
+		Message msg = buffer[out];
+		mutex.release();
+		notFull.release();
+	}
+}

@@ -1,0 +1,27 @@
+
+public class ProdConsBuffer {
+	int n; // Taille du tableau
+	int nempty; // Nombre de cases vides
+	int nfull; // Nombre de cases remplies
+	
+	
+	// buffer à n entiers
+	
+	public void Producer(Message msg) {
+		while (nfull == n) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		notifyAll();
+	}
+	
+	public Message Consume() {
+		return new Message("");
+	}
+	
+	
+}

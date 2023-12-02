@@ -1,0 +1,7 @@
+package terminaison;
+
+public class ProdConsBuffer {
+	Semaphore notEmpty;
+	Semaphore notFull;
+	Semaphore mutex;
+}

@@ -1,0 +1,8 @@
+
+public class Message {
+	String mot;
+	
+	public void Message(String mot) {
+		this.mot = mot;
+	}
+}

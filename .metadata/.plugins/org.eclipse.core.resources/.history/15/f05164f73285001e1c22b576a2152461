@@ -1,0 +1,9 @@
+package terminaison;
+
+import java.util.concurrent.Semaphore;
+
+public class ProdConsBuffer {
+	Semaphore notEmpty;
+	Semaphore notFull;
+	Semaphore mutex;
+}

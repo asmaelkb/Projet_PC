@@ -1,0 +1,48 @@
+import java.util.concurrent.ArrayBlockingQueue;
+
+public class ProdConsBuffer {
+	int n; // Taille du tableau
+	int nempty; // Nombre de cases vides
+	int nfull; // Nombre de cases remplies
+	
+	public ProdConsBuffer(int n) {
+		// Création d'un tableau vide
+		this.n = n;
+		this.nempty = n;
+		this.nfull = 0;
+	}
+	
+	ArrayBlockingQueue<Message> buffer = new ArrayBlockingQueue<Message>(n);
+	// buffer à n entiers
+	
+	public void Producer(Message msg) {
+		while (nempty == 0) { // Aucune case vide <=> elles sont toutes remplies
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		buffer.add(msg);
+		nempty--;
+		nfull++;
+		notifyAll();
+	}
+	
+	public Message Consume() {
+		while (nfull == 0) { // Aucune case remplie <=> elles sont toutes vides
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		Message msg = buffer.remove();
+		nempty++;
+		nfull--;
+		notifyAll();
+		return msg;
+	}
+	
+	
+}

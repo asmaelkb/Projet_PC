@@ -1,0 +1,5 @@
+package solutionDirecte1;
+
+public class Producer extends Thread {
+
+}
