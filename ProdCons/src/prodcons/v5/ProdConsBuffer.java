@@ -66,17 +66,25 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		return msg;
 	}
 	
-	// Messages consécutifs
+	// Retirer k messages consécutifs
 	public synchronized Message[] get(int k) {
 		Message[] m = new Message[k];
 		
-		while (nempty == n && k > nfull) {
+		while (k > nfull) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		for (int i = 0; i < k; i++) {
+			m[i] = remove();
+		}
+
+		nempty += k;
+		nfull -= k;
+		notifyAll();
 		
 		return m;
 	}
