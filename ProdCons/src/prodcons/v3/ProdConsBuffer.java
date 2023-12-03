@@ -1,6 +1,5 @@
 package prodcons.v3;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
 
 public class ProdConsBuffer {
@@ -11,9 +10,6 @@ public class ProdConsBuffer {
 	int in;
 	int out;
 	int n; // Nombre de messages présent dans le buffer
-	
-	
-	// Reader et writer : n consumer et 1 producer en même temps
 	
 	Message buffer[]; // Buffer circulaire
  	
@@ -30,7 +26,7 @@ public class ProdConsBuffer {
 	}
 	
 	
-	public void Produce(Message msg) throws InterruptedException {
+	public void put(Message msg) throws InterruptedException {
 		notFull.acquire();
 		mutex.acquire();
 		
@@ -44,13 +40,13 @@ public class ProdConsBuffer {
 		notEmpty.release();
 	}
 	
-	public Message Consume() throws InterruptedException {
+	public Message get() throws InterruptedException {
 		notEmpty.acquire();
 		mutex.acquire();
-		
+		Message msg;
 		// Récupère à l'index out
 		synchronized(this) {
-			Message msg = buffer[out];
+			msg = buffer[out];
 			out = out + 1 % n;
 		}
 		
