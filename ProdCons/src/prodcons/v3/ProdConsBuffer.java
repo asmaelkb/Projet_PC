@@ -2,7 +2,7 @@ package prodcons.v3;
 
 import java.util.concurrent.Semaphore;
 
-public class ProdConsBuffer {
+public class ProdConsBuffer implements IProdConsBuffer {
 	Semaphore notFull;
 	Semaphore notEmpty;
 	Semaphore mutex;
@@ -48,10 +48,25 @@ public class ProdConsBuffer {
 		synchronized(this) {
 			msg = buffer[out];
 			out = out + 1 % n;
+			
 		}
 		
 		mutex.release();
 		notFull.release();
 		return msg;
+	}
+
+
+	@Override
+	public int nmsg() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int totmsg() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
