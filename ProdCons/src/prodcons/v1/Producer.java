@@ -25,7 +25,7 @@ public class Producer extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			Message msg = new Message(Integer.toString(nbMsg));
+			Message msg = new Message(this.getName());
 			buffer.put(msg);
 		}
 		

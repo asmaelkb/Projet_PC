@@ -40,17 +40,17 @@ public class TestProdCons {
 		
 		buff = new ProdConsBuffer(bufSz);
 		
-//		// Threads producteurs 
-//		for(int i = 0; i < nProd; i++) {
-//			prod[i] = new Producer(buff, new Message(Integer.toString(i)));
-//			prod[i].start();
-//		}
-//		
-//		// Threads consommateurs
-//		for(int i = 0; i < nCons; i++) {
-//			cons[i] = new Consumer(buff);
-//			cons[i].start();
-//		}
+		// Threads producteurs 
+		for(int i = 0; i < nProd; i++) {
+			prod[i] = new Producer(buff, prodTime, minProd, maxProd);
+			prod[i].start();
+		}
+		
+		// Threads consommateurs
+		for(int i = 0; i < nCons; i++) {
+			cons[i] = new Consumer(buff, consTime);
+			cons[i].start();
+		}
 			
 	}
 }

@@ -14,7 +14,7 @@ public class Consumer extends Thread {
 		while(true) {
 			
 			Message msg = buffer.get();
-			System.out.println("Consommation du message : " + msg);
+			System.out.println("Consommation du message : " + msg.mot);
 			
 			// Traitement du message
 			try {
