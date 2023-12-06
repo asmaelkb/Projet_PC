@@ -1,5 +1,7 @@
 package prodcons.v6;
 
+import java.util.concurrent.Semaphore;
+
 public class Producer extends Thread {
 	ProdConsBuffer buffer;
 	Message msg;
@@ -24,8 +26,14 @@ public class Producer extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			Message msg = new Message(Integer.toString(nbMsg));
-			buffer.put(msg);
+			Semaphore push = new Semaphore(0);
+			Semaphore pop = new Semaphore(0);
+			Message msg = new Message(Integer.toString(nbMsg), push, pop);
+			try {
+				buffer.put(msg, nbMsg);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

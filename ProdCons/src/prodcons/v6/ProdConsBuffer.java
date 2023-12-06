@@ -15,7 +15,8 @@ public class ProdConsBuffer implements IProdConsBuffer {
 	
 	// Sémaphore bloquant permettant que le producteur est bloqué tant que 
 	// tous les messages n'ont pas été consommés
-	Semaphore prod = new Semaphore(0);  
+	Semaphore pop = new Semaphore(0);  
+	Semaphore push = new Semaphore(0);
 	
 	public ProdConsBuffer(int n) {
 		// Création d'un tableau vide
@@ -56,17 +57,24 @@ public class ProdConsBuffer implements IProdConsBuffer {
 				}
 			}
 			msg = remove();
+			msg.push.release();
 			nempty++;
 			nfull--;
 			notifyAll();
 		}
-		prod.release();
+		//prod.release();
+		try {
+			msg.pop.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return msg;
 	}
 
 	@Override
 	public void put(Message m, int n) throws InterruptedException {
-	
+		//push = new Semaphore(n);
+		
 		synchronized(this) {
 			while (nfull == size) { // Toutes les cases sont remplies
 				try {
@@ -87,9 +95,8 @@ public class ProdConsBuffer implements IProdConsBuffer {
 //			prod.acquire();
 //		}
 		
-		prod.acquire(n);
-		
-		
+		m.push.acquire(n);
+		m.pop.release(n);
 	}
 
 
