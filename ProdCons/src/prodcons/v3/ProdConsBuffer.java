@@ -33,7 +33,8 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		// Ajout à l'index in
 		synchronized(this) {
 			buffer[in] = msg;
-			in = in + 1 % n;
+			in = (in + 1) % taille;
+			n++;
 		}
 		
 		mutex.release();
@@ -47,8 +48,8 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		// Récupère à l'index out
 		synchronized(this) {
 			msg = buffer[out];
-			out = out + 1 % n;
-			
+			out = (out + 1) % taille;
+			n--;
 		}
 		
 		mutex.release();

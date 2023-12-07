@@ -16,8 +16,8 @@ public class Producer extends Thread{
 	}
 	
 	public void run() {
-		int nbMsg = (int) Math.floor(Math.random() * (max - min + 1) + min );
-		
+		// int nbMsg = (int) Math.floor(Math.random() * (max - min + 1) + min );
+		int nbMsg = 1;
 		// Production d'un message à la fois
 		for (int i = 0; i < nbMsg; i++) {
 			try {
@@ -25,7 +25,7 @@ public class Producer extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			Message msg = new Message(Integer.toString(nbMsg));
+			Message msg = new Message(this.getName());
 			
 			try {
 				buffer.put(msg);

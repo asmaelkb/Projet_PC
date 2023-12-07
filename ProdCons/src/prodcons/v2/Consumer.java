@@ -14,15 +14,15 @@ public class Consumer extends Thread {
 	
 	public void run() {
 		
-		int nbMsg = buffer.nmsg(); // Nombre de messages produits par le thread Producer
-		int nbCons = 0; // Nombre de messages consommés
-		
+//		int nbMsg = buffer.nmsg(); // Nombre de messages produits par le thread Producer
+//		int nbCons = 0; // Nombre de messages consommés
+//		
 		// L'application se termine lorsque tous les messages produits ont été consommés
 		
-		while(nbMsg != nbCons) {
+		while(true) {
 			
 			Message msg = buffer.get();
-			System.out.println("Consommation du message : " + msg);
+			System.out.println("Consommation du message : " + msg.mot );
 			
 			// Traitement du message
 			try {
@@ -30,7 +30,6 @@ public class Consumer extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			nbCons++;
 			
 		}
 		
