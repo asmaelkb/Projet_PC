@@ -19,7 +19,7 @@ public class Consumer extends Thread {
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("Consommation du message : " + msg.mot );
+			System.out.println("Consommation du message : " + msg.mot);
 			
 			// Traitement du message
 			try {

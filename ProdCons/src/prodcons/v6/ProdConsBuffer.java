@@ -2,6 +2,8 @@ package prodcons.v6;
 
 import java.util.concurrent.Semaphore;
 
+import java.lang.Thread;
+
 public class ProdConsBuffer implements IProdConsBuffer {
 	
 	int size; 				// Taille du tableau
@@ -64,6 +66,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		}
 		//prod.release();
 		try {
+			System.out.println("Thread consommateur bloqué : " + Thread.currentThread().getName());
 			msg.pop.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -95,6 +98,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 //			prod.acquire();
 //		}
 		
+		System.out.println("Thread producteur bloqué : " + Thread.currentThread().getName());
 		m.push.acquire(n);
 		m.pop.release(n);
 	}
