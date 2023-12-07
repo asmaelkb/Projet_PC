@@ -1,4 +1,4 @@
-package prodcons.v2;
+package prodcons.v6;
 
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
@@ -21,7 +21,7 @@ public class TestProdCons {
 	
 	static ProdConsBuffer buff;
 	
-	public static void main(String[] args) throws InvalidPropertiesFormatException, IOException, InterruptedException {
+	public static void main(String[] args) throws InvalidPropertiesFormatException, IOException {
 		
 		Properties properties = new Properties();
 		
@@ -44,7 +44,6 @@ public class TestProdCons {
 		for(int i = 0; i < nProd; i++) {
 			prod[i] = new Producer(buff, prodTime, minProd, maxProd);
 			prod[i].start();
-			
 		}
 		
 		// Threads consommateurs
@@ -53,11 +52,7 @@ public class TestProdCons {
 			cons[i].start();
 		}
 		
-		for(int i = 0; i < nProd; i++) {
-			prod[i].join();
-		}
-		
-		//while()
+		System.out.println(buff);
 			
 	}
 }

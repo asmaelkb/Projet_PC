@@ -10,6 +10,7 @@ public class Consumer extends Thread {
 	public Consumer(ProdConsBuffer buffer, int consTime) {
 		this.buffer = buffer;
 		this.time = consTime;
+		this.setDaemon(true);
 	}
 	
 	public void run() {
@@ -19,10 +20,10 @@ public class Consumer extends Thread {
 		
 		// L'application se termine lorsque tous les messages produits ont été consommés
 		
-		while(nbMsg != nbCons) {
+		while(true) {
 			
 			Message msg = buffer.get();
-			System.out.println("Consommation du message : " + msg);
+			System.out.println("Consommation du message : " + msg.mot);
 			
 			// Traitement du message
 			try {

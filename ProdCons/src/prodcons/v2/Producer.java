@@ -19,7 +19,8 @@ public class Producer extends Thread {
 	}
 	
 	public void run() {
-		int nbMsg = (int) Math.floor(Math.random() * (max - min + 1) + min );
+		//int nbMsg = (int) Math.floor(Math.random() * (max - min + 1) + min );
+		int nbMsg = 1;
 		
 		// Production d'un message à la fois
 		for (int i = 0; i < nbMsg; i++) {
@@ -30,6 +31,7 @@ public class Producer extends Thread {
 			}
 			Message msg = new Message(this.getName());
 			buffer.put(msg);
+			System.out.println("Message produced");
 		}
 		
 	}
