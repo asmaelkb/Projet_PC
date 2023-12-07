@@ -44,6 +44,7 @@ public class TestProdCons {
 		for(int i = 0; i < nProd; i++) {
 			prod[i] = new Producer(buff, prodTime, minProd, maxProd);
 			prod[i].start();
+			
 		}
 		
 		// Threads consommateurs
@@ -56,10 +57,7 @@ public class TestProdCons {
 			prod[i].join();
 		}
 		
-		
-		System.out.println("Fin de l'application");
-		Thread.currentThread().join();
-		
+		//while()
 			
 	}
 }
