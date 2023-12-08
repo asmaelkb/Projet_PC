@@ -15,11 +15,6 @@ public class ProdConsBuffer implements IProdConsBuffer {
 	
 	Message[] buffer; // Tableau à n cases
 	
-	// Sémaphore bloquant permettant que le producteur est bloqué tant que 
-	// tous les messages n'ont pas été consommés
-	Semaphore pop = new Semaphore(0);  
-	Semaphore push = new Semaphore(0);
-	
 	public ProdConsBuffer(int n) {
 		// Création d'un tableau vide
 		this.size = n;
