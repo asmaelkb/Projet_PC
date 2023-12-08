@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+/home/asmaelkb/Bureau/S7/Projet_ProdCons/.metadata/.plugins/org.eclipse.jdt.core
-78042857.index
-4174912123.index
-1865797976.index
