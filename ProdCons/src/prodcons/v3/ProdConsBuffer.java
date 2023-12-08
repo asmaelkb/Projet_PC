@@ -31,11 +31,10 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		mutex.acquire();
 		
 		// Ajout à l'index in
-		synchronized(this) {
-			buffer[in] = msg;
-			in = (in + 1) % taille;
-			n++;
-		}
+		buffer[in] = msg;
+		in = (in + 1) % taille;
+		n++;
+		
 		
 		mutex.release();
 		notEmpty.release();
@@ -46,11 +45,10 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		mutex.acquire();
 		Message msg;
 		// Récupère à l'index out
-		synchronized(this) {
-			msg = buffer[out];
-			out = (out + 1) % taille;
-			n--;
-		}
+		
+		msg = buffer[out];
+		out = (out + 1) % taille;
+		n--;
 		
 		mutex.release();
 		notFull.release();
